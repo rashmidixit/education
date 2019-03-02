@@ -21,6 +21,12 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      window.addEventListener("message", this.receiveMessage, false);
     });
+  }
+
+  receiveMessage(message) {
+    //console.log(JSON.stringify(message));
+    //alert(JSON.stringify(message));
   }
 }
