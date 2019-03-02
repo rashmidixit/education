@@ -55,6 +55,47 @@ router.get('/', auth.isLoggedIn, async function (req, res) {
     }
 });
 
+/* GET home page for rahaf. */
+router.get('/rahaf', auth.isLoggedIn, async function (req, res) {
+    // res.sendFile(path.join(__dirname + '/../views/index.html'));
+    let rawMessages = indy.store.messages.getAll();
+    let messages = [];
+    for (let message of rawMessages) {
+        if (messageParsers[message.message.type]) {
+            messages.push(await messageParsers[message.message.type](message));
+        } else {
+            messages.push(message);
+        }
+    }
+
+    let proofRequests = await indy.proofs.getProofRequests(true);
+    for(let prKey of Object.keys(proofRequests)) {
+        proofRequests[prKey].string = prettyStringify(proofRequests[prKey]);
+    }
+
+    let credentials = await indy.credentials.getAll();
+    let relationships = await indy.pairwise.getAll();
+
+    res.render('rahaf', {
+        messages: messages,
+        messageTypes: messageTypes,
+        relationships: relationships,
+        credentials: credentials,
+        schemas: await indy.issuer.getSchemas(),
+        credentialDefinitions: await indy.did.getEndpointDidAttribute('credential_definitions'),
+        endpointDid: await indy.did.getEndpointDid(),
+        proofRequests: proofRequests,
+        name: config.userInformation.name,
+        srcId: config.userInformation.icon_src,
+        theme: THEME
+    });
+
+    for(let prKey of Object.keys(proofRequests)) {
+        delete proofRequests[prKey].string;
+    }
+});
+
+
 // router.get('/login', function(req, res) {
 //    res.render('login', {
 //        name: config.userInformation.name

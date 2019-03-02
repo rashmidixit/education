@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=name%>'s Agent1</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-lite.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jdenticon@2.0.0"></script>
+        <!--<link rel="import" href="bower_components/chat-window/chat-window.html">-->
+        <style is="custom-style">
+            chat-window {
+                font-size: small;
+                --chat-messages-height: 12em;
+                --chat-messages-scroller: {
+                    border: 1px inset #eee;
+                };
+                --paper-input-container-input: {
+                    margin: 0 2px;
+                };
+                --chat-message-text: {
+                    background-color: #f0f0f0;
+                    padding: 6px 8px;
+                    margin: 4px 0;
+                    border-radius: 6px;
+                };
+            }
+        </style>
+        <style>
+            .center {
+                margin:auto;
+                width: 90%;
+            }
+            #messages { list-style-type: none; margin: 0; padding: 0; }
+            #messages li { padding: 5px 10px; }
+            #messages li:nth-child(odd) { background: #eee; }
+            #messages { margin-bottom: 40px }
+            .w3-bar { background-color: <%=theme%> !important }
+        </style>
+    </head>
+    <body style="max-width:600px">
+        <!-- Header -->
+
+        <nav class="w3-sidebar w3-bar-block w3-card" id="mySidebar">
+          <div class="w3-container w3-theme-d2">
+            <span onclick="closeSidebar()" class="w3-button w3-display-topright w3-large">X</span>
+            <br>
+            <div class="w3-padding">
+              <img class="w3-circle" "w3-left" src="img_avatar.jpg" alt="" style="width:75%">
+              <div class="w3-cell" "w3-center"> Rahaf </div>
+            </div>
+          </div>
+          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button" onclick="showTab('relationships')" >Relationships</a>
+          <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button" onclick="showTab('credentials')" >Credentials</a>
+          <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button" onclick="showTab('proofs')" >Proof 1 Requests</a>
+        </nav>
+
+        <header class="w3-bar w3-card w3-theme">
+          <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+          <h1 class="w3-bar-item">Advaya</h1>
+        </header>
+
+        <footer class="w3-container w3-theme w3-margin-top">
+          <h3>Footer</h3>
+        </footer>
+
+        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:50px;width:300px;z-index:99;background:white;">-->
+            <!--<h5>Chat with Andrew</h5>-->
+            <!--<chat-window-->
+                <!--id="chat"-->
+                <!--author="me"-->
+                <!--single-line>-->
+            <!--</chat-window>-->
+        <!--</div>-->
+        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:540px;width:300px;z-index:99;background:white;">-->
+            <!--<h5>Chat with Andrew</h5>-->
+            <!--<chat-window-->
+                    <!--id="chat2"-->
+                    <!--author="me"-->
+                    <!--single-line>-->
+            <!--</chat-window>-->
+        <!--</div>-->
+
+        <script>
+        closeSidebar();
+        function openSidebar() {
+          document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function closeSidebar() {
+          document.getElementById("mySidebar").style.display = "none";
+        }
+        </script>
+
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    </body>
+</html>
