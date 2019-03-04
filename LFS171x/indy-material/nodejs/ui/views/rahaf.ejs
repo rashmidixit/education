@@ -103,6 +103,10 @@
         function closeSidebar() {
           document.getElementById("mySidebar").style.display = "none";
         }
+        
+         window.addEventListener("message", (event) => {
+           alert("Received from ionic app " + event.data);
+         });
         </script>
 
         <script>
