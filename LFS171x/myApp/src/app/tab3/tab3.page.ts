@@ -30,7 +30,7 @@ export class Tab3Page {
       if(available === "finger"){
         const result = await this.fingerprint.show(this.fingerprintOptions);
         console.log(result);
-        window.frames[0].postMessage(result, "*");
+        window.frames[0].postMessage(JSON.stringify(result), "*");
       }
     }
     catch(e)
