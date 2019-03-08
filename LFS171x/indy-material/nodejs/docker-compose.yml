@@ -123,8 +123,8 @@ services:
       - ICON_SRC=https://maxcdn.icons8.com/Share/icon/Users/person_female1600.png
       - THEME=DarkGray
       - PORT=3000
-      - NAME=Alice
-      - EMAIL=alice@faber.edu
+      - NAME=Aswathi
+      - EMAIL=Aswathi@faber.edu
       - PASSWORD=123
       - USERNAME=alice
       - PUBLIC_DID_ENDPOINT=173.17.0.150:3000
@@ -180,7 +180,7 @@ services:
       - ICON_SRC=https://cdn2.iconfinder.com/data/icons/bubble-education-icons-1/360/School-512.png
       - THEME=OliveDrab
       - PORT=3002
-      - NAME=Faber College
+      - NAME=UNHCR
       - EMAIL=admin@faber.edu
       - PASSWORD=123
       - USERNAME=faber
@@ -208,7 +208,7 @@ services:
       - ICON_SRC=https://i.ytimg.com/vi/JUMufld7UcY/maxresdefault.jpg
       - THEME=LightSteelBlue
       - PORT=3003
-      - NAME=Acme Corporation
+      - NAME=Saudi National Bank
       - EMAIL=boss@acme.com
       - PASSWORD=123
       - USERNAME=acme

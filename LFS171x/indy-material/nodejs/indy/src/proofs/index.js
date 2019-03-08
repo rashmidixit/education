@@ -34,7 +34,7 @@ exports.getProofRequests = async function(force) {
                 version: '0.1',
                 requested_attributes: {
                     'attr1_referent': {
-                        'name': 'degree',
+                        'name': 'countryOfOrigin',
                         'restrictions': [{'cred_def_id': transcriptCredDef.id}]
                     },
                     'attr2_referent': {
@@ -79,7 +79,14 @@ exports.prepareRequest = async function(message) {
     let credsForProofRequest = await sdk.proverGetCredentialsForProofReq(await indy.wallet.get(), proofRequest);
     let credsForProof = {};
     for(let attr of Object.keys(proofRequest.requested_attributes)) {
-        credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];
+    console.log("***************************---------------------*****************************************");       
+    console.log(credsForProofRequest['attrs'][attr][0]['cred_info']);
+    console.log("------------------heollo------------------------");
+    console.log(credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`]);
+     credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];
+     // credsForProof[{credsForProofRequest['attrs'][attr][0]['cred_info']] = "Aswathi";
+     // credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];
+
     }
 
     let requestedCreds = {
