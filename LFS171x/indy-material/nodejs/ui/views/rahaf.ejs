@@ -56,8 +56,9 @@
             </div>
           </div>
           <a href="#contacts" id="contacts_link" class="w3-bar-item w3-button tab_link" onclick="showTab('contacts')" >Contacts</a>
+          <a href="#rahafmessages" id="rahafmessages_link" class="w3-bar-item w3-button tab_link" onclick="showTab('rahafmessages')" >Messages</a>
           <a href="#rahafcredentials" id="rahafcredentials_link" class="w3-bar-item w3-button tab_link" onclick="showTab('rahafcredentials')" >Credentials</a>
-          <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button tab_link" onclick="showTab('proofs')" >Proof 1 Requests</a>
+          <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button tab_link" onclick="showTab('proofs')" >Proof Requests</a>
         </nav>
 
         <header class="w3-bar w3-card w3-theme">
@@ -70,11 +71,10 @@
               <% include contacts.ejs %>
               <% include rahafcredentials.ejs %>
               <% include rahafcredentialdetails.ejs %>
-              <% include credentials.ejs %>
               <% include proofs.ejs %>
               <% include issuing.ejs %>
               <% include relationships.ejs %>
-              <% include messages.ejs %>
+              <% include rahafmessages.ejs %>
           </div>
         </div>
 
