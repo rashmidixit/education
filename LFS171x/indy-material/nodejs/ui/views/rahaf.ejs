@@ -3,6 +3,7 @@
     <head>
         <title><%=name%>'s Agent1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/css/rahaf.css" rel="stylesheet">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -53,6 +54,7 @@
               <div class="w3-cell" "w3-center"> Rahaf </div>
             </div>
           </div>
+          <a href="#contacts" id="contacts_link" class="w3-bar-item w3-button" onclick="showTab('contacts')" >Contacts</a>
           <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button" onclick="showTab('relationships')" >Relationships</a>
           <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button" onclick="showTab('credentials')" >Credentials</a>
           <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button" onclick="showTab('proofs')" >Proof 1 Requests</a>
@@ -65,6 +67,7 @@
 
         <div class="w3-container">
           <div class="w3-row-padding w3-center w3-margin-top">
+              <% include contacts.ejs %>
               <% include credentials.ejs %>
               <% include proofs.ejs %>
               <% include issuing.ejs %>
@@ -137,8 +140,8 @@
             }
         }
         if(!found) {
-            window.location.href = window.location.href + "#credentials";
-            showTab('relationships');
+            window.location.href = window.location.href + "#contacts";
+            showTab('contacts');
         }
 
         showDiv(document.getElementById('currentProofRequest').value, 'proofRequestsClass');
