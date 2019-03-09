@@ -28,9 +28,6 @@ services:
       - 9000:8000
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
     volumes:
       - ./server:/home/indy/server
       - webserver-cli:/home/indy/.indy-cli
@@ -134,9 +131,6 @@ services:
       - 3000:3000
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
     networks:
       services:
         ipv4_address: 173.17.0.150
@@ -163,9 +157,6 @@ services:
       - 3001:3001
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
       - alice
     networks:
       services:
@@ -191,9 +182,6 @@ services:
       - 3002:3002
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
       - alice
     networks:
       services:
@@ -219,9 +207,6 @@ services:
       - 3003:3003
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
       - alice
     networks:
       services:
@@ -247,9 +232,6 @@ services:
       - 3004:3004
     depends_on:
       - node1
-      - node2
-      - node3
-      - node4
       - alice
     networks:
       services:
