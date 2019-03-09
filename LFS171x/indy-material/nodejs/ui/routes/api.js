@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const indy = require('../../indy/index');
 const auth = require('../authentication');
-const qrgenFun=require("./qrGenerator");
+//const qrgenFun=require("./qrGenerator");
 
 function getQrCode(did){
     // var did="This_Is_Sample_Text";
