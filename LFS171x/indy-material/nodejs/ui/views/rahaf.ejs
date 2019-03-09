@@ -104,10 +104,16 @@
         function closeSidebar() {
           document.getElementById("mySidebar").style.display = "none";
         }
-        
+         
+         function showTabAndDiv(tabId, divId, divClass) {
+           showTab(tabId);
+           showDiv(divId, divClass);
+         }
+         
          window.addEventListener("message", (event) => {
            alert("Received from ionic app " + event.data);
          });
+         
         </script>
 
         <script>
