@@ -55,7 +55,7 @@
               <div class="w3-cell" "w3-center"> Rahaf </div>
             </div>
           </div>
-          <a href="#contacts" id="contacts_link" class="w3-bar-item w3-button tab_link" onclick="showTab('contacts')" >Contacts</a>
+          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button tab_link" onclick="showTab('relationships')" >Contacts</a>
           <a href="#rahafmessages" id="rahafmessages_link" class="w3-bar-item w3-button tab_link" onclick="showTab('rahafmessages')" >Messages</a>
           <a href="#rahafcredentials" id="rahafcredentials_link" class="w3-bar-item w3-button tab_link" onclick="showTab('rahafcredentials')" >Credentials</a>
           <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button tab_link" onclick="showTab('proofs')" >Proof Requests</a>
@@ -73,7 +73,6 @@
               <% include rahafcredentialdetails.ejs %>
               <% include proofs.ejs %>
               <% include issuing.ejs %>
-              <% include relationships.ejs %>
               <% include rahafmessages.ejs %>
           </div>
         </div>
@@ -161,8 +160,8 @@
             }
         }
         if(!found) {
-            window.location.href = window.location.href + "#contacts";
-            showTab('contacts');
+            window.location.href = window.location.href + "#relationships";
+            showTab('relationships');
         }
 
         showDiv(document.getElementById('currentProofRequest').value, 'proofRequestsClass');
