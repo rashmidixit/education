@@ -3,6 +3,8 @@
     <head>
         <title><%=name%>'s Agent1</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="/css/rahaf.css" rel="stylesheet">
+        <link href="/css/rahafcredentials.css" rel="stylesheet">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -53,46 +55,53 @@
               <div class="w3-cell" "w3-center"> Rahaf </div>
             </div>
           </div>
-          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button" onclick="showTab('relationships')" >Relationships</a>
-          <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button" onclick="showTab('credentials')" >Credentials</a>
-          <a href="#proofs" id="proofs_link" class="w3-bar-item w3-button" onclick="showTab('proofs')" >Proof 1 Requests</a>
+          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button tab_link" onclick="showTab('relationships')" >Contacts</a>
+          <a href="#messages" id="messages_link" class="w3-bar-item w3-button tab_link" onclick="showTab('messages')" >Messages</a>
+          <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button tab_link" onclick="showTab('credentials')" >Credentials</a>
         </nav>
 
         <header class="w3-bar w3-card w3-theme">
-          <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-          <h1 class="w3-bar-item">Advaya</h1>
+          <button class="w3-bar-item w3-button w3-large w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+          <div class="w3-bar-item">Advaya</div>
         </header>
 
         <div class="w3-container">
           <div class="w3-row-padding w3-center w3-margin-top">
-              <% include credentials.ejs %>
+              <% include contacts.ejs %>
+              <% include rahafcredentials.ejs %>
+              <% include rahafcredentialdetails.ejs %>
               <% include proofs.ejs %>
               <% include issuing.ejs %>
-              <% include relationships.ejs %>
-              <% include messages.ejs %>
+              <% include rahafmessages.ejs %>
           </div>
         </div>
 
-        <footer class="w3-container w3-theme w3-margin-top">
-          <h3>Footer</h3>
+        <div id="newRelationshipModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+        <span onclick="document.getElementById('newRelationshipModel').style.display='none'"
+              class="w3-button w3-display-topright">×</span>
+                    <h4>Create a New Relationship</h4>
+                </header>
+                <div class="w3-padding">
+                    <form class="w3-container w3-card-4 w3-padding" action="/api/send_connection_request" method="POST" target="_self">
+                        <div class="w3-section">
+                            Recipient's Endpoint DID: <input class="w3-input" type="text" name="did" required>
+                        </div>
+                        <input class="w3-btn w3-white w3-border" style="display:block;margin:auto;" type="submit" value="Send Connection Request">
+                    </form>
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+        <footer style="position:fixed;bottom:0;width:600px;height:60px;background-color:gray;">
+            <button style="margin:10px;display:inline-block;font-size:18px" class="w3-btn w3-white w3-left" onclick="console.log('barcode clicked'); window.parent.postMessage({event: 'InvokeBarCode', params: {}}, '*');">
+              Add New Connection
+              <i class="fa fa-barcode"></i>
+            </button>
         </footer>
-
-        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:50px;width:300px;z-index:99;background:white;">-->
-            <!--<h5>Chat with Andrew</h5>-->
-            <!--<chat-window-->
-                <!--id="chat"-->
-                <!--author="me"-->
-                <!--single-line>-->
-            <!--</chat-window>-->
-        <!--</div>-->
-        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:540px;width:300px;z-index:99;background:white;">-->
-            <!--<h5>Chat with Andrew</h5>-->
-            <!--<chat-window-->
-                    <!--id="chat2"-->
-                    <!--author="me"-->
-                    <!--single-line>-->
-            <!--</chat-window>-->
-        <!--</div>-->
 
         <script>
         closeSidebar();
@@ -103,14 +112,43 @@
         function closeSidebar() {
           document.getElementById("mySidebar").style.display = "none";
         }
-        
-         window.addEventListener("message", (event) => {
-           alert("Received from ionic app " + event.data);
-         });
+
+        function showTabAndDiv(tabId, divId, divClass, alias) {
+          showTab(tabId, alias);
+          showDiv(divId, divClass);
+        }
+
+        function connectionSubmit(href, method, message, name) {
+          if(name.toLowerCase() === "accept") {
+            window.parent.postMessage({
+              event: 'InvokeFingerPrint',
+              params: {
+                href: href,
+                method: method,
+                message: message
+              }
+            }, "*");
+          } else {
+            request(href, method, message);
+          }
+        }
+
+        window.addEventListener("message", (message) => {
+          if (message.data.event.toLowerCase() === "FingerPrintAccepted".toLowerCase()) {
+            console.log("Shashi"+JSON.stringify(message.data.params));
+            request(message.data.params.href, message.data.params.method, message.data.params.message, true);
+          }
+
+          if (message.data.event.toLowerCase() === "BarcodeScanned".toLowerCase()) {
+            console.log("Shashi"+JSON.stringify(message.data.params));
+            request('/api/send_connection_request', 'POST', JSON.stringify(message.data.params), true);
+          }
+        });
+
         </script>
 
         <script>
-        function showTab(id) {
+        function showTab(id, alias) {
             let tabs = document.getElementsByClassName("tab");
             for (let i = 0; i < tabs.length; i++) {
                 tabs[i].style.display = "none";
@@ -123,7 +161,12 @@
                 tabLinks[i].style['font-weight'] = "normal";
             }
 
-            document.getElementById(`${id}_link`).style['font-weight'] = "bold";
+            if (alias) {
+              document.getElementById(`${alias}_link`).style['font-weight'] = "bold";
+            } else {
+              document.getElementById(`${id}_link`).style['font-weight'] = "bold";
+            }
+
             closeSidebar();
         }
 
@@ -137,7 +180,7 @@
             }
         }
         if(!found) {
-            window.location.href = window.location.href + "#credentials";
+            window.location.href = window.location.href + "#relationships";
             showTab('relationships');
         }
 
@@ -149,6 +192,28 @@
             }
             console.log('showing div: ', id);
             document.getElementById(id).style.display = "block";
+        }
+
+        function request(url, method, message, dontReload) {
+            console.log(message);
+            console.log(`${method}ing ${url}: ${message}`);
+            let xhttp = new XMLHttpRequest();
+            xhttp.open(method, url, true);
+            if(message) {
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+                xhttp.send(message);
+            } else {
+                xhttp.send();
+            }
+
+            if (dontReload === true) {
+              setTimeout(function() {
+                console.log("reloading page");
+                location.reload()
+              }, 3000)
+            } else {
+              location.reload();
+            }
         }
 
         function validateProof(div, proof) {

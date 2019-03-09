@@ -196,7 +196,7 @@ services:
       - ICON_SRC=https://i.ytimg.com/vi/JUMufld7UcY/maxresdefault.jpg
       - THEME=LightSteelBlue
       - PORT=3003
-      - NAME=Saudi National Bank
+      - NAME=Refugees International
       - EMAIL=boss@acme.com
       - PASSWORD=123
       - USERNAME=acme
