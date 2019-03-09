@@ -97,7 +97,7 @@
             </div>
         </div>
         <footer style="position:fixed;bottom:0;width:600px;height:60px;background-color:gray;">
-            <button style="margin:10px;display:inline-block;font-size:18px" class="w3-btn w3-white w3-left" onclick="console.log('barcode clicked'); window.parent.postMessage('InvokeBarCode', '*');">
+            <button style="margin:10px;display:inline-block;font-size:18px" class="w3-btn w3-white w3-left" onclick="console.log('barcode clicked'); window.parent.postMessage({event: 'InvokeBarCode', params: {}}, '*');">
               Add New Connection
               <i class="fa fa-barcode"></i>
             </button>
@@ -118,8 +118,31 @@
           showDiv(divId, divClass);
         }
 
-        window.addEventListener("message", (event) => {
-          //alert("Received from ionic app " + event.data);
+        function connectionSubmit(href, method, message, name) {
+          if(name.toLowerCase() === "accept") {
+            window.parent.postMessage({
+              event: 'InvokeFingerPrint',
+              params: {
+                href: href,
+                method: method,
+                message: message
+              }
+            }, "*");
+          } else {
+            request(href, method, message);
+          }
+        }
+
+        window.addEventListener("message", (message) => {
+          if (message.data.event.toLowerCase() === "FingerPrintAccepted".toLowerCase()) {
+            console.log("Shashi"+JSON.stringify(message.data.params));
+            request(message.data.params.href, message.data.params.method, message.data.params.message, true);
+          }
+
+          if (message.data.event.toLowerCase() === "BarcodeScanned".toLowerCase()) {
+            console.log("Shashi"+JSON.stringify(message.data.params));
+            request('/api/send_connection_request', 'POST', JSON.stringify(message.data.params), true);
+          }
         });
 
         </script>
@@ -171,7 +194,7 @@
             document.getElementById(id).style.display = "block";
         }
 
-        function request(url, method, message) {
+        function request(url, method, message, dontReload) {
             console.log(message);
             console.log(`${method}ing ${url}: ${message}`);
             let xhttp = new XMLHttpRequest();
@@ -182,7 +205,15 @@
             } else {
                 xhttp.send();
             }
-            location.reload();
+
+            if (dontReload === true) {
+              setTimeout(function() {
+                console.log("reloading page");
+                location.reload()
+              }, 3000)
+            } else {
+              location.reload();
+            }
         }
 
         function validateProof(div, proof) {
