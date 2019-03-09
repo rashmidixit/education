@@ -62,8 +62,8 @@
         </nav>
 
         <header class="w3-bar w3-card w3-theme">
-          <button class="w3-bar-item w3-button w3-xxxlarge w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-          <h1 class="w3-bar-item">Advaya</h1>
+          <button class="w3-bar-item w3-button w3-large w3-hover-theme" onclick="openSidebar()">&#9776;</button>
+          <div class="w3-bar-item">Advaya</div>
         </header>
 
         <div class="w3-container">
@@ -78,22 +78,34 @@
           </div>
         </div>
 
-        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:50px;width:300px;z-index:99;background:white;">-->
-            <!--<h5>Chat with Andrew</h5>-->
-            <!--<chat-window-->
-                <!--id="chat"-->
-                <!--author="me"-->
-                <!--single-line>-->
-            <!--</chat-window>-->
-        <!--</div>-->
-        <!--<div class="w3-container w3-card" style="position:fixed;bottom:52px;float:right; right:540px;width:300px;z-index:99;background:white;">-->
-            <!--<h5>Chat with Andrew</h5>-->
-            <!--<chat-window-->
-                    <!--id="chat2"-->
-                    <!--author="me"-->
-                    <!--single-line>-->
-            <!--</chat-window>-->
-        <!--</div>-->
+        <div id="newRelationshipModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+        <span onclick="document.getElementById('newRelationshipModel').style.display='none'"
+              class="w3-button w3-display-topright">×</span>
+                    <h4>Create a New Relationship</h4>
+                </header>
+                <div class="w3-padding">
+                    <form class="w3-container w3-card-4 w3-padding" action="/api/send_connection_request" method="POST" target="_self">
+                        <div class="w3-section">
+                            Recipient's Endpoint DID: <input class="w3-input" type="text" name="did" required>
+                        </div>
+                        <input class="w3-btn w3-white w3-border" style="display:block;margin:auto;" type="submit" value="Send Connection Request">
+                    </form>
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+        <footer style="position:fixed;bottom:0;width: 100%;">
+                    <div class="logo">Advaya</div>
+                    <button
+                    onclick="document.getElementById('newRelationshipModel').style.display='block'">Qr code</button>
+                        <!-- New Relationship Model -->
+
+
+                </footer>
 
         <script>
         closeSidebar();
@@ -111,7 +123,7 @@
         }
 
         window.addEventListener("message", (event) => {
-          alert("Received from ionic app " + event.data);
+          //alert("Received from ionic app " + event.data);
         });
 
         </script>
