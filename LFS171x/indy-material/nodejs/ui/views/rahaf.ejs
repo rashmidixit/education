@@ -104,16 +104,16 @@
         function closeSidebar() {
           document.getElementById("mySidebar").style.display = "none";
         }
-         
+
         function showTabAndDiv(tabId, divId, divClass, alias) {
           showTab(tabId, alias);
           showDiv(divId, divClass);
         }
-         
+
         window.addEventListener("message", (event) => {
           alert("Received from ionic app " + event.data);
         });
-         
+
         </script>
 
         <script>
@@ -129,13 +129,13 @@
             for (i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].style['font-weight'] = "normal";
             }
-            
+
             if (alias) {
               document.getElementById(`${alias}_link`).style['font-weight'] = "bold";
             } else {
               document.getElementById(`${id}_link`).style['font-weight'] = "bold";
             }
-            
+
             closeSidebar();
         }
 
@@ -161,6 +161,20 @@
             }
             console.log('showing div: ', id);
             document.getElementById(id).style.display = "block";
+        }
+
+        function request(url, method, message) {
+            console.log(message);
+            console.log(`${method}ing ${url}: ${message}`);
+            let xhttp = new XMLHttpRequest();
+            xhttp.open(method, url, true);
+            if(message) {
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+                xhttp.send(message);
+            } else {
+                xhttp.send();
+            }
+            location.reload();
         }
 
         function validateProof(div, proof) {
