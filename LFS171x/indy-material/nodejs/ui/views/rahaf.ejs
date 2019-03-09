@@ -96,14 +96,12 @@
                 </footer>
             </div>
         </div>
-        <footer style="position:fixed;bottom:0;width: 100%;">
-                    <div class="logo">Advaya</div>
-                    <button
-                    onclick="document.getElementById('newRelationshipModel').style.display='block'">Qr code</button>
-                        <!-- New Relationship Model -->
-
-
-                </footer>
+        <footer style="position:fixed;bottom:0;width:600px;height:60px;background-color:gray;">
+            <button style="margin:10px;display:inline-block;font-size:18px" class="w3-btn w3-white w3-left" onclick="console.log('barcode clicked'); window.parent.postMessage('InvokeBarCode', '*');">
+              Add New Connection
+              <i class="fa fa-barcode"></i>
+            </button>
+        </footer>
 
         <script>
         closeSidebar();
