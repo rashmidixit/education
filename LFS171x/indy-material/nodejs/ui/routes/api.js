@@ -7,6 +7,11 @@ router.get('/', function (req, res, next) {
     res.send("Success");
 });
 
+router.get('/did', async function(req,res,next){
+var did = await indy.did.getEndpointDid();
+res.send(did);
+});
+
 router.post('/send_message', auth.isLoggedIn, async function (req, res) {
     let message = JSON.parse(req.body.message);
     message.did = req.body.did;
