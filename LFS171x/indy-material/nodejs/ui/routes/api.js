@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 const indy = require('../../indy/index');
 const auth = require('../authentication');
+const qrgenFun=require("./qrGenerator");
+
+function getQrCode(did){
+    // var did="This_Is_Sample_Text";
+
+    var url="https://api.qrserver.com/v1/create-qr-code/?data="+did;//+"&amp;size=100x100"
+
+console.log(url);
+//document.getElementById("qrimg").setAttribute("src",url);
+//url=url.substring(0,url.length-1);
+return url;
+};
 
 router.get('/', function (req, res, next) {
     res.send("Success");
@@ -9,8 +21,24 @@ router.get('/', function (req, res, next) {
 
 router.get('/did', async function(req,res,next){
 var did = await indy.did.getEndpointDid();
-res.send(did);
+
+var svg_string=await getQrCode(did);
+
+//res.send(svg_string);
+
+//res.send('<div align="center" style="background-color : gray;"><h4><center>Scan QR Code</center> </h4>'+"<img  src=" + svg_string +"></div>");
+res.send('<body  style="background-color : gray;"><div align="center"><h4><center style="color : white;">Scan QR Code</center> </h4>'+"<img  src=" + svg_string +"></div></body>");
+
+//res.send("<h1> Hello -In </h1>"+"<img src="+svg_string +">");
+//res.send(did);
 });
+
+
+
+
+
+
+
 
 router.post('/send_message', auth.isLoggedIn, async function (req, res) {
     let message = JSON.parse(req.body.message);
