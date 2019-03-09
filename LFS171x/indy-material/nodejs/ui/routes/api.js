@@ -34,13 +34,47 @@ router.post('/issuer/create_schema', auth.isLoggedIn, async function (req, res) 
 });
 
 router.post('/issuer/create_cred_def', auth.isLoggedIn, async function (req, res) {
+   // await indy.issuer.createCredDef(req.body.schema_id, req.body.tag);
+    console.log("Trying ###  " + JSON.stringify(req.body));
+
+    console.log("*******Trying ");
+    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "status", "year", "average", "aadharNumber"]');	
+    console.log("Trying 2");
     await indy.issuer.createCredDef(req.body.schema_id, req.body.tag);
+    console.log("Trying 3");
     res.redirect('/#issuing');
+    await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.val);
+    console.log("Trying 4");
+    res.redirect('/#issuing');
+
+
+    
 });
 
-router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (req, res) {
-    await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.cred_def_id);
-    res.redirect('/#issuing');
+router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (req, res) { 
+	
+    
+    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "status", "year", "average", "aadharNumber"]');	
+    console.log("Trying 2 Req Body " + JSON.stringify(req.body));
+     
+    var enpt = await indy.did.getEndpointDid();
+    console.log("Trying 2 endpoint " + JSON.stringify(enpt));
+
+    var schemas22 = await indy.issuer.getSchemas();
+    console.log("Trying 3  Schemas " + JSON.stringify(schemas22));
+ 
+    await indy.issuer.createCredDef(schemas22[0].id, 'MyTranscript');
+    console.log("Trying 4");
+
+    var credentialDefinitions22 = await indy.did.getEndpointDidAttribute('credential_definitions');
+    console.log("Trying 3  CredsDef " + JSON.stringify(credentialDefinitions22));
+
+    var relationships22 = await indy.pairwise.getAll();
+    console.log("req.body.their_relationship_did " + relationships22[0].their_did);
+ 
+     await indy.credentials.sendOffer(relationships22[0].their_did, credentialDefinitions22[0].id);
+     console.log("Trying 5");
+     res.redirect('/#issuing');
 });
 
 router.post('/credentials/accept_offer', auth.isLoggedIn, async function(req, res) {

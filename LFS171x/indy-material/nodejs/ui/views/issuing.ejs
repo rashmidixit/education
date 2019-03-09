@@ -1,5 +1,5 @@
 <div id="issuing" class="tab" style="display:none;">
-    <div class="w3-container w3-card w3-padding w3-margin" style="float: left;width: 31%">
+    <!--<div class="w3-container w3-card w3-padding w3-margin" style="float: left;width: 31%">
         <h3>Create Schema: </h3>
         <form method="POST" action="/api/issuer/create_schema">
             <label>Name of Schema: </label>
@@ -20,14 +20,14 @@
             <br><br>
             <input class="w3-btn w3-white w3-border" type="submit">
         </form>
-    </div>
+    </div>--> 
 
     <div style="float: left;width: 31%">
-        <div class="w3-container w3-card w3-padding w3-margin">
+        <!--<div class="w3-container w3-card w3-padding w3-margin">
             <h3>Create Credential Definition</h3>
             <form method="POST" action="/api/issuer/create_cred_def">
                 <label>Select a Schema:</label>
-                <select class="w3-select" name="schema_id" required>
+                <select class="w3-select" name="schema_id" >
                     <%for(let schema of schemas) {%>
                     <option value="<%=schema.id%>"><%=schema.name%> <%=schema.version%></option>
                     <%}%>
@@ -38,7 +38,7 @@
                 <br><br>
                 <input class="w3-btn w3-white w3-border" type="submit">
             </form>
-        </div>
+        </div>-->
         <div class="w3-container w3-card w3-padding w3-margin">
             <h3>Send Credential Offer</h3>
             <form method="POST" action="/api/issuer/send_credential_offer">
@@ -47,16 +47,20 @@
                     <%for(let relationship of relationships) {%>
                         <option value="<%=relationship.their_did%>"><%=relationship.metadata.name%></option>
                     <%}%>
-                </select>
+                </select> <br>
+ 		
                 <br><br>
                 <label>Select a Credential Definition:</label>
-                <select class="w3-select" name="cred_def_id" required>
-                    <%for(let credDef of credentialDefinitions) {%>
-                        <option value="<%=credDef.id%>"><%=credDef.tag%></option>
-                    <%}%>
+             	<select class="w3-select" name="cred_def_id" >
+                    
+                       <option value="MyTranscript">Refugee Document</option>
+
+			
+                   
                 </select>
                 <br><br>
-                <input class="w3-btn w3-white w3-border" type="submit">
+		
+                <input class="w3-btn w3-white w3-border" type="submit" value="Send">
             </form>
         </div>
     </div>
