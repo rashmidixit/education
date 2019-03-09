@@ -1,0 +1,12 @@
+<div id="relationships" class="tab" style="display:none;">
+  <div class="w3-padding contacts">
+      <%for(let relationship of relationships) {%>
+          <div class="contacts_row contacts_row1">
+          <div class="w3-bar w3-btn w3-white w3-border" style="width:100%;">
+              <svg class="w3-bar-item" width="70" height="70" data-jdenticon-value="<%=relationship.their_did%>"></svg>
+              <p class="w3-bar-item"><%=relationship.metadata.name%></p>
+          </div>
+        </div>
+      <%}%>
+  </div>
+</div>

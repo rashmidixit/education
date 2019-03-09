@@ -14,6 +14,7 @@ const messageTypes = {
 };
 
 const THEME = process.env["THEME"] || "black"
+const PORT = process.env["PORT"]
 
 /* GET home page. */
 router.get('/', auth.isLoggedIn, async function (req, res) {
