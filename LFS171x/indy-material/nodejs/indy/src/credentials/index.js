@@ -64,8 +64,8 @@ exports.acceptRequest = async function(theirDid, encryptedMessage) {
             case "countryOfOrigin":
                 value = "India";
                 break;
-            case "status":
-                value = "graduated";
+            case "dateOfBirth":
+                value = "11-12-1988";
                 break;
             case "aadharNumber":
                 value = "123-45-6789";

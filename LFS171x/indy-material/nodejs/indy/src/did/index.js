@@ -16,6 +16,7 @@ exports.createDid = async function (didInfoParam) {
 
 exports.getEndpointDid = async function() {
     if(!endpointDid) {
+
         let dids = await sdk.listMyDidsWithMeta(await indy.wallet.get());
         for (let didinfo of dids) {
             let meta = JSON.parse(didinfo.metadata);

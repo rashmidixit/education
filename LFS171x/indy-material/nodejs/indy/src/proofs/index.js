@@ -1,6 +1,7 @@
 'use strict';
 const sdk = require('indy-sdk');
 const indy = require('../../index.js');
+const http = require('http');
 
 const MESSAGE_TYPES = {
     REQUEST : "urn:sovrin:agent:message_type:sovrin.org/proof_request",
@@ -12,6 +13,29 @@ exports.MESSAGE_TYPES = MESSAGE_TYPES;
 exports.handlers = require('./handlers');
 
 let proofRequests;
+
+function sendHttpRequestForProof() {
+	return new Promise(function(resolve, reject) {
+		http.get('http://10.44.15.40:3002/api/issuer/send_credential_offer_to_acme', (resp) => {
+  		let data = '';
+
+		  // A chunk of data has been recieved.
+		  resp.on('data', (chunk) => {
+		    data += chunk;
+		  });
+
+		  // The whole response has been received. Print out the result.
+		  resp.on('end', () => {
+		    console.log(data);
+		    resolve(data);
+		  });
+
+		}).on("error", (err) => {
+		  console.log("Error: " + err.message);
+		  reject(err);
+		});	
+	})
+}
 
 exports.getProofRequests = async function(force) {
     if(force || !proofRequests) {
@@ -54,14 +78,22 @@ exports.getProofRequests = async function(force) {
 };
 exports.sendRequest = async function(myDid, theirDid, proofRequestId, otherProofRequest) {
     let proofRequest;
-    if(proofRequestId === "proofRequestOther") {
+    if (process.env["PORT"] === "3003" || process.env["PORT"] === 3003) {
+	console.log("Customized flow for proofs");
+	var transcript = await sendHttpRequestForProof();
+	console.log(transcript);
+	proofRequest = JSON.parse(transcript);
+	console.log("a"+proofRequest);
+    } else if(proofRequestId === "proofRequestOther") {
         proofRequest = JSON.parse(otherProofRequest);
     } else {
         await exports.getProofRequests(); // loads data into proofRequests if not already there.
         proofRequest = proofRequests[proofRequestId];
     }
+    console.log("b"+proofRequest);
     proofRequest.nonce = randomNonce();
 
+    console.log(JSON.stringify(proofRequest));
     indy.store.pendingProofRequests.write(proofRequest);
 
     return indy.crypto.sendAnonCryptedMessage(await indy.did.getTheirEndpointDid(theirDid), await indy.crypto.buildAuthcryptedMessage(myDid, theirDid, MESSAGE_TYPES.REQUEST, proofRequest));
