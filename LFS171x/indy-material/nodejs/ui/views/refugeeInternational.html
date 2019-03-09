@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UNHCR's Agent1</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3pro.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-lite.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jdenticon@2.0.0"></script>
+        <meta charset="utf-8"/>
+        
+        <style>
+            .center {
+                margin:auto;
+                width: 90%;
+            }
+            #messages { list-style-type: none; margin: 0; padding: 0; }
+            #messages li { padding: 5px 10px; }
+            #messages li:nth-child(odd) { background: #eee; }
+            #messages { margin-bottom: 40px }
+            .w3-bar { background-color: OliveDrab !important }
+        </style>
+    </head>
+    <body>
+       
+        <div id="aboutModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+       
+                </header>
+                <div class="w3-padding">
+                    <p></p>
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+
+        <!-- Send Credential Modal -->
+        <div id="sendCredModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+       
+                </header>
+                <div class="w3-padding">
+                    <p></p>
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+
+        <!-- New Relationship Model -->
+        <div id="newRelationshipModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+        
+                </header>
+                <div class="w3-padding">
+                   
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+
+        <!-- New Message Model -->
+        <div id="newMessageModel" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-top">
+                <header class="w3-container w3-theme-l1">
+                    
+                </header>
+                <div class="w3-padding">
+                    
+                </div>
+                <footer class="w3-container w3-theme-l1">
+                    <p></p>
+                </footer>
+            </div>
+        </div>
+
+       
+        <div id="menubar" class="w3-bar w3-theme">
+           
+            <a href="/logout" class="w3-right w3-bar-item w3-button w3-padding-16">Logout</a>
+            <a class="w3-right w3-bar-item w3-padding-16">Welcome UNHCR</a>
+            <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/sovrinIcon.png"></a>
+            <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('relationships')" >Relationships</a>
+            <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('credentials')" >Credentials</a>
+            <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('proofs')" >Proof 1 Requests</a>
+            <a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('issuing')" >Issuing</a>
+            <a href="#messages" id="messages_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('messages')" >Messages</a>
+        </div>
+        
+
+        <div class="w3-row-padding w3-center w3-margin-top">
+            <div id="credentials" class="tab" style="display:none;">
+    <div class="w3-padding">
+        <div class="w3-third w3-border" style="width:33%; height:85vh; overflow:scroll;">
+            
+                <a >
+                    <div class="w3-bar w3-btn w3-white w3-border" style="width:100%;">
+                       
+                    </div>
+                </a>
+                <br>
+            
+        </div>
+        
+            <div id="6aa4af04-8070-43ef-b3d4-0314042c63c5" class="w3-padding credentialsClass" style="float:left;width:66%;display:none;">
+                <div class="w3-border w3-container" style="margin:50px 50px;">
+                    <div class="w3-cell-middle" style="display: block;margin: auto;">
+                        <img width="320" height="320" src="https://cdn2.iconfinder.com/data/icons/bubble-education-icons-1/360/School-512.png" />
+                        
+                    </div>
+                    <div class="w3-cell" style="display: block;margin: auto;">
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+    
+</div>
+            <div id="proofs" class="tab" style="display:none;">
+    <form method="POST" action="/api/proofs/send_request">
+        <div class="w3-half">
+            <div class="w3-container w3-card w3-padding w3-margin">
+               
+            </div>
+        </div>
+        <div class="w3-half">
+            
+                <div id="General-Identity" class="proofRequestsClass" style="width:100%;display:none;">
+               
+                </div>
+            
+                <div id="Transcript-Data" class="proofRequestsClass" style="width:100%;display:none;">
+                   
+                </div>
+            
+            <div id="proofRequestOther" class="proofRequestsClass" style="width:100%;display:none;">
+               
+            </div>
+        </div>
+    </form>
+</div>
+            <div id="issuing" class="tab" style="display:none;">
+  
+
+    <div style="float: left;width: 55%" id="ABC">
+        
+        <div class="w3-container w3-card w3-padding w3-margin">
+            <h3>Refugee Details</h3>
+            <form method="POST" action="/api/issuer/send_credential_offer">
+                <label>Country: </label>
+                <select  name="country" required>
+                        <option value="select" selected>select</option>
+			<option value="India">India</option>
+			<option value="Syria">Syria</option>
+			<option value="Malaysia">Malaysia</option>
+			<option value="Columbia">Columbia</option>
+			<option value="Venezuela">Venezuela</option>
+
+                    
+                </select> <br>
+ 		
+                <br>
+                <label>Age</label>
+		<select  name="comparisonSign" required>
+                    
+			<option value="greater">></option>
+			<option value="lesser"><</option>
+			
+                    
+                </select> 
+		<label>18</label>	
+		<br><br>
+		<label>Refugee Status</label>
+		<input type="text" name="refugeeStatus"/>
+<br>
+
+             
+                <br><br>
+		
+                <input class="w3-btn w3-white w3-border" type="submit" value="Request Refugee Status">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+            <div id="relationships" class="tab" style="display:none;" >
+    
+    <div class="w3-padding">
+        <div class="w3-third w3-border" style="width:33%; height:85vh; overflow:scroll;">
+            
+           
+            
+        </div>
+        
+            <div id="6dsfP1zauue5rQi4HrL8Zn" class="w3-padding relationshipsClass" style="float:left;width:66%;margin-bottom: 100px;display:none;">
+                <div class="w3-border w3-container" style="margin:10px 50px;">
+                    <div class="w3-cell-middle" style="display: block;margin: auto;">
+                        
+                    </div>
+                    <div class="w3-cell" style="display: block;margin: auto;">
+                        
+                       
+                        
+                        <div style="display:block;width:50%;margin:auto;">
+                            
+                        </div>
+                        
+                        
+                            
+                                <div class="w3-bar w3-card">
+                                    <div class="w3-bar-item">
+                                       
+                                        
+                                    </div>
+                                    <div class="w3-bar-item">
+                                      
+                                    </div>
+                                </div>
+                                <br><br>
+                            
+                        
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>
+            <div id="messages" class="tab" style="display:none;">
+    
+    <div id="messages" class="" style="display:block;margin:auto;width:50%; height:700px; overflow:scroll;">
+        
+    </div>
+</div>
+        </div>
+        <footer style="position:fixed;bottom:0;background: black;width: 100%;">
+            <p style="text-align: center;color: white;">My Endpoint DID: P9R1nAF4zsHW7t8Cd1iHfQ</p>
+        </footer>
+     
+
+<script>
+
+            function showTab(id) {
+                let tabs = document.getElementsByClassName("tab");
+                for (let i = 0; i < tabs.length; i++) {
+                    tabs[i].style.display = "none";
+                }
+                document.getElementById(id).style.display = "block";
+
+                // Bold the selected link, unbold others
+                let tabLinks = document.getElementsByClassName("tab_link");
+                for (i = 0; i < tabLinks.length; i++) {
+                    tabLinks[i].style['font-weight'] = "normal";
+                }
+
+                document.getElementById(`${id}_link`).style['font-weight'] = "bold";
+            }
+
+            let tabs = document.getElementsByClassName("tab");
+            let hashlink = document.location.hash.replace('#', '');
+            let found = false;
+            for(let tab of tabs) {
+                if(tab.id === hashlink) {
+                    showTab(hashlink);
+                    found = true;
+                }
+            }
+            if(!found) {
+                window.location.href = window.location.href + "#credentials";
+                showTab('relationships');
+            }
+
+            function request(url, method, message) {
+                console.log(message);
+                console.log(`${method}ing ${url}: ${message}`);
+                let xhttp = new XMLHttpRequest();
+                xhttp.open(method, url, true);
+                if(message) {
+                    xhttp.setRequestHeader('Content-Type', 'application/json');
+                    xhttp.send(message);
+                } else {
+                    xhttp.send();
+                }
+                location.reload();
+            }
+
+            showDiv(document.getElementById('currentProofRequest').value, 'proofRequestsClass');
+            function showDiv(id, className) {
+                let tabs = document.getElementsByClassName(className);
+                for (let i = 0; i < tabs.length; i++) {
+                    tabs[i].style.display = "none";
+                }
+                console.log('showing div: ', id);
+                document.getElementById(id).style.display = "block";
+            }
+
+            function validateProof(div, proof) {
+                div.innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:100px;"></i>'
+                let xhttp = new XMLHttpRequest();
+                xhttp.open('POST', '/api/proofs/validate', true);
+                xhttp.setRequestHeader('Content-Type', 'application/json');
+                console.log(proof);
+                xhttp.send(JSON.stringify(proof));
+                xhttp.onload = function() {
+                    console.log(xhttp);
+                    if(xhttp.status === 200) {
+                        console.log("Validation succeeded");
+                        div.innerHTML = '<i class="fa fa-check" style="color:green;font-size:120px;"></i>'
+                    } else {
+                        div.innerHTML = '<i class="fa fa-times" style="color:red;font-size:120px;"></i>'
+                        console.log("Validation failed");
+                    }
+                }
+            }
+
+        </script>
+
+
+    </body>
+</html>
+
