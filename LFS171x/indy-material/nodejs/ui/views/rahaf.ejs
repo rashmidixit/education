@@ -105,19 +105,19 @@
           document.getElementById("mySidebar").style.display = "none";
         }
          
-         function showTabAndDiv(tabId, divId, divClass) {
-           showTab(tabId);
-           showDiv(divId, divClass);
-         }
+        function showTabAndDiv(tabId, divId, divClass, alias) {
+          showTab(tabId, alias);
+          showDiv(divId, divClass);
+        }
          
-         window.addEventListener("message", (event) => {
-           alert("Received from ionic app " + event.data);
-         });
+        window.addEventListener("message", (event) => {
+          alert("Received from ionic app " + event.data);
+        });
          
         </script>
 
         <script>
-        function showTab(id) {
+        function showTab(id, alias) {
             let tabs = document.getElementsByClassName("tab");
             for (let i = 0; i < tabs.length; i++) {
                 tabs[i].style.display = "none";
@@ -129,8 +129,13 @@
             for (i = 0; i < tabLinks.length; i++) {
                 tabLinks[i].style['font-weight'] = "normal";
             }
-
-            document.getElementById(`${id}_link`).style['font-weight'] = "bold";
+            
+            if (alias) {
+              document.getElementById(`${alias}_link`).style['font-weight'] = "bold";
+            } else {
+              document.getElementById(`${id}_link`).style['font-weight'] = "bold";
+            }
+            
             closeSidebar();
         }
 
