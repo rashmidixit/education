@@ -16,7 +16,7 @@ let proofRequests;
 
 function sendHttpRequestForProof() {
 	return new Promise(function(resolve, reject) {
-		http.get('http://10.44.15.40:3002/api/issuer/send_credential_offer_to_acme', (resp) => {
+		http.get('http://10.44.15.36:3002/api/issuer/send_credential_offer_to_acme', (resp) => {
   		let data = '';
 
 		  // A chunk of data has been recieved.
@@ -26,12 +26,12 @@ function sendHttpRequestForProof() {
 
 		  // The whole response has been received. Print out the result.
 		  resp.on('end', () => {
-		    console.log(data);
+		   // console.log(data);
 		    resolve(data);
 		  });
 
 		}).on("error", (err) => {
-		  console.log("Error: " + err.message);
+		 // console.log("Error: " + err.message);
 		  reject(err);
 		});	
 	})
@@ -79,21 +79,21 @@ exports.getProofRequests = async function(force) {
 exports.sendRequest = async function(myDid, theirDid, proofRequestId, otherProofRequest) {
     let proofRequest;
     if (process.env["PORT"] === "3003" || process.env["PORT"] === 3003) {
-	console.log("Customized flow for proofs");
+	//console.log("Customized flow for proofs");
 	var transcript = await sendHttpRequestForProof();
-	console.log(transcript);
+	//console.log(transcript);
 	proofRequest = JSON.parse(transcript);
-	console.log("a"+proofRequest);
+	//console.log("a"+proofRequest);
     } else if(proofRequestId === "proofRequestOther") {
         proofRequest = JSON.parse(otherProofRequest);
     } else {
         await exports.getProofRequests(); // loads data into proofRequests if not already there.
         proofRequest = proofRequests[proofRequestId];
     }
-    console.log("b"+proofRequest);
+   // console.log("b"+proofRequest);
     proofRequest.nonce = randomNonce();
 
-    console.log(JSON.stringify(proofRequest));
+   // console.log(JSON.stringify(proofRequest));
     indy.store.pendingProofRequests.write(proofRequest);
 
     return indy.crypto.sendAnonCryptedMessage(await indy.did.getTheirEndpointDid(theirDid), await indy.crypto.buildAuthcryptedMessage(myDid, theirDid, MESSAGE_TYPES.REQUEST, proofRequest));
@@ -111,10 +111,10 @@ exports.prepareRequest = async function(message) {
     let credsForProofRequest = await sdk.proverGetCredentialsForProofReq(await indy.wallet.get(), proofRequest);
     let credsForProof = {};
     for(let attr of Object.keys(proofRequest.requested_attributes)) {
-    console.log("***************************---------------------*****************************************");       
-    console.log(credsForProofRequest['attrs'][attr][0]['cred_info']);
-    console.log("------------------heollo------------------------");
-    console.log(credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`]);
+   // console.log("***************************---------------------*****************************************");       
+   // console.log(credsForProofRequest['attrs'][attr][0]['cred_info']);
+   // console.log("------------------heollo------------------------");
+    //console.log(credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`]);
      credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];
      // credsForProof[{credsForProofRequest['attrs'][attr][0]['cred_info']] = "Aswathi";
      // credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`] = credsForProofRequest['attrs'][attr][0]['cred_info'];

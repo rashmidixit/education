@@ -116,7 +116,7 @@ exports.acceptAcknowledgement = async function (theirDid, encryptedMessage) {
     let myDid = await indy.pairwise.getMyDid(theirDid);
 
     let message = await indy.crypto.authDecrypt(myDid, encryptedMessage);
-    console.log(message);
+    //console.log(message);
 
     await indy.proofs.sendRequest(myDid, theirDid, 'General-Identity');
 };

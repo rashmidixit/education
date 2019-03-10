@@ -67,21 +67,12 @@ exports.acceptRequest = async function(theirDid, encryptedMessage) {
             case "dateOfBirth":
                 value = "11-12-1988";
                 break;
-            case "aadharNumber":
-                value = "123-45-6789";
-                break;
-            case "year":
-                value = "2015";
-                break;
-            case "average":
-                value = "5";
-                break;
             default:
                 value = "someValue";
         }
         credentialValues[attr] = {raw: value, encoded: exports.encode(value)};
     }
-    console.log(credentialValues);
+    //console.log(credentialValues);
 
     let [credential] = await sdk.issuerCreateCredential(await indy.wallet.get(), credentialOffer, credentialRequest, credentialValues);
     let message = await indy.crypto.buildAuthcryptedMessage(myDid, theirDid, MESSAGE_TYPES.CREDENTIAL, credential);
@@ -105,11 +96,11 @@ exports.acceptCredential = async function(theirDid, encryptedMessage) {
     let [, credentialDefinition] = await indy.issuer.getCredDef(await indy.pool.get(), await indy.did.getEndpointDid(), credential.cred_def_id);
     await sdk.proverStoreCredential(await indy.wallet.get(), null, credentialRequestMetadata, credential, credentialDefinition);
     let credentials = await indy.credentials.getAll();
-    console.log(credentials);
+   // console.log(credentials);
 };
 
 exports.encode = function(string) {
-    console.log(string);
+   // console.log(string);
     if(!string) {
         return string;
     }
@@ -123,12 +114,12 @@ exports.encode = function(string) {
         }
         number += codeValue;
     }
-    console.log(number);
+   // console.log(number);
     return number;
 };
 
 exports.decode = function(number) {
-    console.log(number);
+   // console.log(number);
     if(!number) return number;
     let string = "";
     number = number.slice(1); // remove leading 1
@@ -138,6 +129,6 @@ exports.decode = function(number) {
         let code = number.slice(i, i += 3);
         string += String.fromCharCode(parseInt(code, 10));
     }
-    console.log(string);
+   // console.log(string);
     return string;
 };
