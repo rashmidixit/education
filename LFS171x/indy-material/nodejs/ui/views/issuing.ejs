@@ -44,27 +44,24 @@
         <div class="w3-container w3-card w3-padding w3-margin">
             <h3>Send Refugee document</h3>
             <form method="POST" action="/api/issuer/send_credential_offer">
-                <div style="
-    display: flex;
-">Relationship:
-                <select class="w3-select" name="their_relationship_did" required="" style="
-    display: table-column-group;
-">
-
-                    </select> </div>
-
+                <label>Relationship: </label>
+                <select class="w3-select" name="their_relationship_did" required>
+                    <%for(let relationship of relationships) {%>
+                        <option value="<%=relationship.their_did%>"><%=relationship.metadata.name%></option>
+                    <%}%>
+                </select> <br>
+ 		
                 <br><br>
-                <div style="
-    display: flex;
-">Credential:<select class="w3-select" name="cred_def_id">
-
+                <label>Select a Credential Definition:</label>
+             	<select class="w3-select" name="cred_def_id" >
+                    
                        <option value="MyTranscript">Refugee Document</option>
 
-
-
-                    </select></div>
+			
+                   
+                </select>
                 <br><br>
-
+		
                 <input class="w3-btn w3-white w3-border" type="submit" value="Send">
             </form>
         </div>
