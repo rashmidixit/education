@@ -1,26 +1,62 @@
 <div id="proofs" class="tab" style="display:none;">
+   
     <form method="POST" action="/api/proofs/send_request">
         <div class="w3-half">
-            <div class="w3-container w3-card w3-padding w3-margin">
-                <label>Relationship: </label>
-                <select class="w3-select" name="their_relationship_did" required>
+
+            <div class="w3-container w3-card w3-padding w3-margin" align="left">
+                <!--<label>Relationship: </label>-->
+                <select class="w3-select" name="their_relationship_did" required style="display:none">
                     <%for(let relationship of relationships) {%>
                     <option value="<%=relationship.their_did%>"><%=relationship.metadata.name%></option>
                     <%}%>
                 </select>
                 <br><br>
-                <label>Select a Proof Request:</label>
-                <select id="currentProofRequest" onchange="showDiv(this.value, 'proofRequestsClass')" class="w3-select" name="proof_request_id" required>
+                <!--<label>Select a Proof Request:</label>-->
+                <select id="currentProofRequest" onchange="showDiv(this.value, 'proofRequestsClass')" class="w3-select" name="proof_request_id" required style="display:none">
                     <%for(let pr of Object.keys(proofRequests)) {%>
                     <option value="<%=pr%>"><%=pr%></option>
                     <%}%>
                     <option value="proofRequestOther">Other (Paste Proof Request Here) --></option>
                 </select>
+
+		<label>Get Refugee Details</label><br><br>	
+
                 <br><br>
+
+		<label>Country: </label>
+                <select  name="country" required>
+                        <option value="select" selected>select</option>
+			<option value="India">India</option>
+			<option value="Syria">Syria</option>
+			<option value="Malaysia">Malaysia</option>
+			<option value="Columbia">Columbia</option>
+			<option value="Venezuela">Venezuela</option>
+
+                    
+                </select> <br>
+ 		
+                <br>
+                <label>Age</label>
+		<select  name="comparisonSign" required>
+                    
+			<option value="greater">></option>
+			<option value="lesser"><</option>
+			
+                    
+                </select> 
+		<label>18</label>	
+		<br><br>
+		<label>Refugee Status : Accepted</label>
+		 
+		<br>
+
+             
+                <br><br>
+
                 <input class="w3-btn w3-white w3-border" type="submit">
             </div>
         </div>
-        <div class="w3-half">
+        <div class="w3-half" style="display:none">
             <%for(let pr of Object.keys(proofRequests)) {%>
                 <div id="<%=proofRequests[pr].name%>" class="proofRequestsClass" style="width:100%;display:none;">
                     <textarea style="width:100%;" rows="20" readonly><%=proofRequests[pr].string%></textarea>

@@ -135,12 +135,12 @@
 
         window.addEventListener("message", (message) => {
           if (message.data.event.toLowerCase() === "FingerPrintAccepted".toLowerCase()) {
-            console.log("Shashi"+JSON.stringify(message.data.params));
+           // console.log("Shashi"+JSON.stringify(message.data.params));
             request(message.data.params.href, message.data.params.method, message.data.params.message, true);
           }
 
           if (message.data.event.toLowerCase() === "BarcodeScanned".toLowerCase()) {
-            console.log("Shashi"+JSON.stringify(message.data.params));
+           // console.log("Shashi"+JSON.stringify(message.data.params));
             request('/api/send_connection_request', 'POST', JSON.stringify(message.data.params), true);
           }
         });
@@ -190,13 +190,13 @@
             for (let i = 0; i < tabs.length; i++) {
                 tabs[i].style.display = "none";
             }
-            console.log('showing div: ', id);
+           // console.log('showing div: ', id);
             document.getElementById(id).style.display = "block";
         }
 
         function request(url, method, message, dontReload) {
-            console.log(message);
-            console.log(`${method}ing ${url}: ${message}`);
+          //  console.log(message);
+          //  console.log(`${method}ing ${url}: ${message}`);
             let xhttp = new XMLHttpRequest();
             xhttp.open(method, url, true);
             if(message) {
@@ -208,7 +208,7 @@
 
             if (dontReload === true) {
               setTimeout(function() {
-                console.log("reloading page");
+           //     console.log("reloading page");
                 location.reload()
               }, 3000)
             } else {
@@ -221,16 +221,16 @@
             let xhttp = new XMLHttpRequest();
             xhttp.open('POST', '/api/proofs/validate', true);
             xhttp.setRequestHeader('Content-Type', 'application/json');
-            console.log(proof);
+          //  console.log(proof);
             xhttp.send(JSON.stringify(proof));
             xhttp.onload = function() {
-                console.log(xhttp);
+              //  console.log(xhttp);
                 if(xhttp.status === 200) {
-                    console.log("Validation succeeded");
+                //    console.log("Validation succeeded");
                     div.innerHTML = '<i class="fa fa-check" style="color:green;font-size:120px;"></i>'
                 } else {
                     div.innerHTML = '<i class="fa fa-times" style="color:red;font-size:120px;"></i>'
-                    console.log("Validation failed");
+                   // console.log("Validation failed");
                 }
             }
         }

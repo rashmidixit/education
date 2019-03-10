@@ -9,14 +9,14 @@ function getQrCode(did){
 
     var url="https://api.qrserver.com/v1/create-qr-code/?data="+did;//+"&amp;size=100x100"
 
-console.log(url);
+//console.log(url);
 //document.getElementById("qrimg").setAttribute("src",url);
 //url=url.substring(0,url.length-1);
 return url;
 };
 
 function redirect(res, path) {
-  console.log("redirectFn"+process.env["PORT"]);
+ // console.log("redirectFn"+process.env["PORT"]);
   if (process.env["PORT"] === 3000 || process.env["PORT"] === '3000') {
     res.redirect('/rahaf'+path);
   } else {
@@ -58,7 +58,7 @@ router.post('/send_connection_request', auth.isLoggedIn, async function (req, re
     let connectionRequest = await indy.connections.prepareRequest(theirEndpointDid);
 
     await indy.crypto.sendAnonCryptedMessage(theirEndpointDid, connectionRequest);
-    console.log("Shashi" + process.env["PORT"])
+   // console.log("Shashi" + process.env["PORT"])
     redirect(res, '/#relationships');
 });
 
@@ -69,16 +69,16 @@ router.post('/issuer/create_schema', auth.isLoggedIn, async function (req, res) 
 
 router.post('/issuer/create_cred_def', auth.isLoggedIn, async function (req, res) {
    // await indy.issuer.createCredDef(req.body.schema_id, req.body.tag);
-    console.log("Trying ###  " + JSON.stringify(req.body));
+   // console.log("Trying ###  " + JSON.stringify(req.body));
 
-    console.log("*******Trying ");
-    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "status", "year", "average", "aadharNumber"]');
-    console.log("Trying 2");
+   // console.log("*******Trying ");
+    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "dateOfBirth"]');
+   // console.log("Trying 2");
     await indy.issuer.createCredDef(req.body.schema_id, req.body.tag);
-    console.log("Trying 3");
+  //  console.log("Trying 3");
     res.redirect('/#issuing');
     await indy.credentials.sendOffer(req.body.their_relationship_did, req.body.val);
-    console.log("Trying 4");
+   // console.log("Trying 4");
     res.redirect('/#issuing');
 
 
@@ -88,27 +88,27 @@ router.post('/issuer/create_cred_def', auth.isLoggedIn, async function (req, res
 
 router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (req, res) { 
 	
-    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "status", "year", "average", "aadharNumber"]');	
+    await indy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "dateOfBirth"]');	
 
-    console.log("Trying 2 Req Body " + JSON.stringify(req.body));
+   // console.log("Trying 2 Req Body " + JSON.stringify(req.body));
 
     var enpt = await indy.did.getEndpointDid();
-    console.log("Trying 2 endpoint " + JSON.stringify(enpt));
+   // console.log("Trying 2 endpoint " + JSON.stringify(enpt));
 
     var schemas22 = await indy.issuer.getSchemas();
-    console.log("Trying 3  Schemas " + JSON.stringify(schemas22));
+   // console.log("Trying 3  Schemas " + JSON.stringify(schemas22));
 
     await indy.issuer.createCredDef(schemas22[0].id, 'MyTranscript');
-    console.log("Trying 4");
+   // console.log("Trying 4");
 
     var credentialDefinitions22 = await indy.did.getEndpointDidAttribute('credential_definitions');
-    console.log("Trying 3  CredsDef " + JSON.stringify(credentialDefinitions22));
+   // console.log("Trying 3  CredsDef " + JSON.stringify(credentialDefinitions22));
 
     var relationships22 = await indy.pairwise.getAll();
-    console.log("req.body.their_relationship_did " + relationships22[0].their_did);
+    //console.log("req.body.their_relationship_did " + relationships22[0].their_did);
 
      await indy.credentials.sendOffer(relationships22[0].their_did, credentialDefinitions22[0].id);
-     console.log("Trying 5");
+    // console.log("Trying 5");
      res.redirect('/#issuing');
 });
 
@@ -117,17 +117,17 @@ router.post('/issuer/send_credential_offer', auth.isLoggedIn, async function (re
 router.get('/issuer/send_credential_offer_to_acme', auth.isLoggedIn, async function (req, res) { 
 	
     try{
-    await intdy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "status", "year", "average", "aadharNumber"]');	
-    console.log("ACMETrying 2 Req Body " + JSON.stringify(req.body));
+    await intdy.issuer.createSchema('Transcript', '1.3', '[ "name","countryOfOrigin", "dateOfBirth"]');	
+    //console.log("ACMETrying 2 Req Body " + JSON.stringify(req.body));
      }catch(ex){ console.log('will not execute');}
 
 
     var enpt = await indy.did.getEndpointDid();
-    console.log("ACMETrying 2 endpoint " + JSON.stringify(enpt));
+   // console.log("ACMETrying 2 endpoint " + JSON.stringify(enpt));
 	
   
     var schemas22 = await indy.issuer.getSchemas();
-    console.log("ACMETrying 3  Schemas " + JSON.stringify(schemas22));
+    //console.log("ACMETrying 3  Schemas " + JSON.stringify(schemas22));
     
     let transcriptCredDef = await indy.issuer.getCredDefByTag('MyTranscript');
     let proofRequests = {};
@@ -203,8 +203,8 @@ router.put('/connections/request', auth.isLoggedIn, async function (req, res) {
     let message = indy.store.messages.getMessage(messageId);
     indy.store.messages.deleteMessage(messageId);
     await indy.connections.acceptRequest(name, message.message.message.endpointDid, message.message.message.did, message.message.message.nonce);
-    console.log("Shashi " + THEME);
-    console.log(process.env["PORT"])
+  //  console.log("Shashi " + THEME);
+  //  console.log(process.env["PORT"])
     redirect(res, '/#relationships');
 });
 
@@ -213,8 +213,8 @@ router.delete('/connections/request', auth.isLoggedIn, async function (req, res)
     if (req.body.messageId) {
         indy.store.messages.deleteMessage(req.body.messageId);
     }
-    console.log("Shashi " + THEME);
-    console.log(process.env["PORT"])
+   // console.log("Shashi " + THEME);
+   // console.log(process.env["PORT"])
     redirect(res, '/#relationships');
 });
 
@@ -230,9 +230,9 @@ router.post('/proofs/accept', auth.isLoggedIn, async function(req, res) {
 
 router.post('/proofs/send_request', auth.isLoggedIn, async function(req, res) {
     let myDid = await indy.pairwise.getMyDid(req.body.their_relationship_did);
-    console.log("Manual entry ******* " + req.body.manual_entry);
-    console.log("myDid " + myDid); 
-    console.log("REQUEST " + req);
+   // console.log("Manual entry ******* " + req.body.manual_entry);
+   // console.log("myDid " + myDid); 
+   // console.log("REQUEST " + req);
 
     await indy.proofs.sendRequest(myDid, req.body.their_relationship_did, req.body.proof_request_id, req.body.manual_entry);
 
