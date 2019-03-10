@@ -159,9 +159,9 @@
             <a href="/logout" class="w3-right w3-bar-item w3-button w3-padding-16">Logout</a>
             <a class="w3-right w3-bar-item w3-padding-16">Welcome <%=name%></a>
             <a href=""><img class="w3-left w3-bar-item" width="55px" height="55px" src="/images/sovrinIcon.png"></a>
-            <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('relationships')" >Relationships</a>
+            <a href="#relationships" id="relationships_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('relationships')" >Connections</a>
             <a href="#credentials" id="credentials_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('credentials')" >Credentials</a>
-            <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="getTranscript('proofs')" >Proof 1 Requests</a>
+            <a href="#proofs" id="proofs_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="getTranscript('proofs')" >Proof Requests</a>
             <a href="#issuing" id="issuing_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('issuing')" >Issuing</a>
             <a href="#messages" id="messages_link" class="w3-left w3-bar-item w3-button w3-padding-16 tab_link" onclick="showTab('messages')" >Messages</a>
         </div>
@@ -193,7 +193,7 @@
             <p style="text-align: center;color: white;">My Endpoint DID: <%=endpointDid%></p>
         </footer>
         <script>
-	
+
 	    function getTranscript(tab) {
 		/*if (document.title.toLowerCase().indexOf("saudi") >= 0 || document.title.toLowerCase().indexOf("refugee") >= 0) {
 			//3003 port
@@ -210,7 +210,7 @@
                     		} else {
                         		console.log("Transcript not fetched");
                     		}
-                  	} 
+                  	}
 		  	xhttp.send(null);
 		} else*/ {
 		   showTab(tab);

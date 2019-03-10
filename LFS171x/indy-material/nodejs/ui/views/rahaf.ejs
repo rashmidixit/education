@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-lite.js"></script>
+
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jdenticon@2.0.0"></script>
         <!--<link rel="import" href="bower_components/chat-window/chat-window.html">-->
         <style is="custom-style">
@@ -52,17 +53,17 @@
             <br>
             <div class="w3-padding">
               <img class="w3-circle" "w3-left" src="img_avatar.jpg" alt="" style="width:75%">
-              <div class="w3-cell" "w3-center"> Rahaf </div>
+              <div class="w3-cell" "w3-center"> Welcome Aswathi </div>
             </div>
           </div>
-          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button tab_link" onclick="showTab('relationships')" >Contacts</a>
-          <a href="#messages" id="messages_link" class="w3-bar-item w3-button tab_link" onclick="showTab('messages')" >Messages</a>
-          <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button tab_link" onclick="showTab('credentials')" >Credentials</a>
+          <a href="#relationships" id="relationships_link" class="w3-bar-item w3-button tab_link" onclick="showTab('relationships')" ><i class="fa fa-link"></i>&nbsp;&nbsp;Connections</a>
+          <a href="#credentials" id="credentials_link" class="w3-bar-item w3-button tab_link" onclick="showTab('credentials')" ><i class="fa fa-key"></i>&nbsp;&nbsp;Credentials</a>
+          <a href="#messages" id="messages_link" class="w3-bar-item w3-button tab_link" onclick="showTab('messages')" ><i class="fa fa-envelope"></i>&nbsp;&nbsp;Messages</a>
         </nav>
 
         <header class="w3-bar w3-card w3-theme">
           <button class="w3-bar-item w3-button w3-large w3-hover-theme" onclick="openSidebar()">&#9776;</button>
-          <div class="w3-bar-item">Advaya</div>
+          <div class="w3-bar-item">Welcome Aswathi</div>
         </header>
 
         <div class="w3-container">
@@ -88,7 +89,8 @@
                         <div class="w3-section">
                             Recipient's Endpoint DID: <input class="w3-input" type="text" name="did" required>
                         </div>
-                        <input class="w3-btn w3-white w3-border" style="display:block;margin:auto;" type="submit" value="Send Connection Request">
+                        <input class="w3-btn w3-white w3-border"
+                        style="display:block;margin:auto;" type="submit" value="Send Connection Request">
                     </form>
                 </div>
                 <footer class="w3-container w3-theme-l1">
@@ -96,10 +98,10 @@
                 </footer>
             </div>
         </div>
-        <footer style="position:fixed;bottom:0;width:600px;height:60px;background-color:gray;">
-            <button style="margin:10px;display:inline-block;font-size:18px" class="w3-btn w3-white w3-left" onclick="console.log('barcode clicked'); window.parent.postMessage({event: 'InvokeBarCode', params: {}}, '*');">
-              Add New Connection
-              <i class="fa fa-barcode"></i>
+        <footer style="position:fixed;bottom:0;width:600px;height:60px;">
+            <button class="w3-btn w3-left w3-circle" style="passing-left:30px;background-color:gray;"
+            onclick="console.log('barcode clicked'); window.parent.postMessage({event: 'InvokeBarCode', params: {}}, '*');">
+              <i class="fa fa-scanqrcode"></i>
             </button>
             <button class="w3-left" style="background-color:gray;border:0px;margin:20px 0px" onclick="location.reload()">
               Powered By Advaya
