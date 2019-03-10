@@ -16,7 +16,7 @@ let proofRequests;
 
 function sendHttpRequestForProof() {
 	return new Promise(function(resolve, reject) {
-		http.get('http://10.44.15.36:3002/api/issuer/send_credential_offer_to_acme', (resp) => {
+		http.get('http://10.44.15.33:3002/api/issuer/send_credential_offer_to_acme', (resp) => {
   		let data = '';
 
 		  // A chunk of data has been recieved.
@@ -33,7 +33,7 @@ function sendHttpRequestForProof() {
 		}).on("error", (err) => {
 		 // console.log("Error: " + err.message);
 		  reject(err);
-		});	
+		});
 	})
 }
 
@@ -111,7 +111,7 @@ exports.prepareRequest = async function(message) {
     let credsForProofRequest = await sdk.proverGetCredentialsForProofReq(await indy.wallet.get(), proofRequest);
     let credsForProof = {};
     for(let attr of Object.keys(proofRequest.requested_attributes)) {
-   // console.log("***************************---------------------*****************************************");       
+   // console.log("***************************---------------------*****************************************");
    // console.log(credsForProofRequest['attrs'][attr][0]['cred_info']);
    // console.log("------------------heollo------------------------");
     //console.log(credsForProof[`${credsForProofRequest['attrs'][attr][0]['cred_info']['referent']}`]);
